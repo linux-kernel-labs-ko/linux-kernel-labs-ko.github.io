@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Download artifact
         env:
-          GHAPI_URL: https://api.github.com/repos/linux-kernel-labs/linux/actions/runs/${{ github.event.client_payload.run_id }}/artifacts
+          GHAPI_URL: https://api.github.com/repos/linux-kernel-labs-ko/linux/actions/runs/${{ github.event.client_payload.run_id }}/artifacts
         run: |
           export ZIP_URL=$(curl -u ${{ secrets.ACCESS_TOKEN }} $GHAPI_URL | jq -r .artifacts[0].archive_download_url)
           curl -L -u ${{ secrets.ACCESS_TOKEN }} -o docs.zip $ZIP_URL
@@ -22,7 +22,7 @@ jobs:
           rm -rf $DIR
           mkdir -p $DIR
           unzip -d $DIR docs.zip
-          git config --global user.email "github.actions@linux-kernel-labs.gihub.io"
+          git config --global user.email "github.actions@linux-kernel-labs-ko.gihub.io"
           git config --global user.name "GitHub Actions"
           git add $DIR
           git commit --allow-empty -m "Publish $DIR"
